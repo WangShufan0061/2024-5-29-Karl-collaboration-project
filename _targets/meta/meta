@@ -1,0 +1,26 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+.Random.seed|object|2e01990057e022a5|||||||||||||||
+clean_gene|function|e20aeb1414e98103|||||||||||||||
+coe_tab|stem|79b817e5dc5dbb6b|cf998a2c0061a3a5|b808499e9330ff85|-1122278512||t19872.0839139742s||3163|rds|local|vector|||0||could not find function get_coe_tab
+conference_plot|stem|b69ee8ed14106280|c6e8995ceead49c4|931b844318ebcf75|-1903181739||t19872.1497845431s|6f7bffa68c2d47f9|359865|rds|local|vector|||0.35||
+EDA_gene_cleaned|function|451d5f23dd37e1a6|||||||||||||||
+EDA_gene_raw|function|9ac8f2ff70ccd4c3|||||||||||||||
+gene_boxplot|stem|9cec212383c2a81a|193969025af17fa6|f5d336aea811e690|1722420760||t19872.0839161309s|72605d8962212841|106847|rds|local|vector|||0||
+gene_clean|stem|06afed4b7edfb679|148a9cfd26162ea4|640ca6bd59de9429|-806304112||t19872.0839051922s|48c1761f7b499b38|738|rds|local|vector|||0.02||
+gene_clean_EDA|stem|2acc21f0529cc9c2|a4c0d9f5fc778e7e|9a3d36e8f24dad28|2027069812||t19872.1670832583s|8268b7ef0d2a38c7|141854|rds|local|vector|||0.19||
+gene_file|stem|bc5c5a201354f3e0|8c9338cd527b5632|2c530c1562a7fbd1|1556190825|raw-data/2024-3-4-WIF-tis4d-raw.xlsx|t19787.0820623768s|4a92e4dd0aaf6dfc|11175|file|local|vector|||0||
+gene_mixeffect|function|763a32df078fba5d|||||||||||||||
+gene_models|stem|33cdfd8b1855590c|d921701cd579591f|e68947d8bd0d97ed|591229699||t19872.1539051525s|93531f3df9db2bb7|365986|rds|local|vector|||0.42|Model failed to converge with maxgrad  0.00466398 tol  0.002, component 1. Using size aesthetic for lines was deprecated in ggplot2 3.4.0.ℹ Please use linewidth instead.|
+gene_raw|stem|d29b8010245cedf5|96136d9d06262a85|ef46db3751d8e999|1538078312|raw-data/2024-3-4-WIF-tis4d-raw.xlsx|t19787.0820623768s|d631e0cfadbd40b9|11175|file|local|vector|||0.36||
+gene_raw_EDA|stem|24a9102bef7d6816|74abf44fb41185b9|10fb8c87fbb76720|1703751902||t19872.0839079774s|545646e384125b78|225473|rds|local|vector|||0.16||
+gene_samplesize|function|9f593c66bcfa0743|||||||||||||||
+gene_tables|stem|bae8a71d9b9eef1c|3bab2f912c2479ef|dcb3b1bcd96c80fc|-746833022||t19872.0839173439s|e1f84ceca71ce04c|3465|rds|local|vector|||0.11||
+get_coe_tab|function|ea2b163a87953d93|||||||||||||||
+get_tables|function|5c5c97312b697ea1|||||||||||||||
+p|object|82228657203f8357|||||||||||||||
+plot_boxplot|function|d22aed91856e9cac|||||||||||||||
+plot_conference|function|4ebb536c81021627|||||||||||||||
+plot_scatter|function|5e145bfe3877af55|||||||||||||||
+readme|stem|13d79294eff78602|340f30a7d03efc0b|ac9ac99053253306|980901812|README.html*README_files*README.qmd|t19872.167171371s|e8901536725c5352|1132092|file|local|vector|||7.5||
+sample_size|stem|3aac6a95854befd0|78c363aa5e131f4d|7ee87c1356df2602|-1641849894||t19872.083904775s|d0ec9a5a63f98b43|53|rds|local|vector|||2.12||
+scatter_plots|stem|9fe5d6ce1824435c|5c87da958baeadac|e88c4f7442973891|1063551923||t19872.0839178871s|933b13f375285434|91480|rds|local|vector|||0.01||

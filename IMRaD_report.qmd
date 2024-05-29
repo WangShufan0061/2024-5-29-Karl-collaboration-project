@@ -1,0 +1,61 @@
+---
+title: "IMRad Report"
+format: pdf
+editor: visual
+---
+
+```{r}
+#| echo: false
+pacman::p_load(tidyverse,targets,readxl,gt,hrbrthemes,ggrepel,showtext)
+font_add(
+  family = "times",
+  regular = here::here(
+    "resources","Times New Roman.ttf"
+  )
+)
+```
+
+# Result
+
+```{r}
+#| echo: false
+#| fig-cap: The variance of gene expression increased as the increase of the growth factor. Moreover, the gene expression with treatment "Activating factor 42" was almost always larger than it with "Placebo", for every level of growth factor. 
+#| label: fig-box_exp_conc
+tar_read(gene_boxplot)
+```
+
+```{r}
+#| echo: false
+#| fig-cap: The relationships between gene expression and growth factors in each cell. For wild-type cells, treatment "Activating factor 42" had a strong influence on the relationships between the gene expression and growth factor, while for cell-type 101 cells, the effect of treatment on this relationship also appears to be related to individual cells.
+#| label: fig-Karl_Conference_figure
+tar_read(conference_plot)
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+#| tbl-cap: RMSE and $R^2$ for each model (Round to 3 decimals). "me4" had the smallest RMSE and largest $R^2$, indicating it is the most accurate model. 
+#| label: rmse_square
+tar_load(gene_models)
+gene_models$rmse_rsquare
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: me4 had the smallest AIC, BIC and deviance, and the biggest log-likelihood. Its p-value of the Chi-square test was also sufficiently small. All the measurements suggested that "me4" is the best model among all 4 models.
+#| label: anova
+gene_models$anova
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: The coefficients of models for every cell. The predictors about treatment "Placebo" (treatmentPlacebo and treatmentPlacebo:conc) negatively influenced the gene expression for all cells, indicating that the treatment "Activating factor 42" positively influenced the cells' gene expression, compared to treatment Placebo.
+#| label: coe_tab
+gene_models$coe_final|>gt(rownames_to_stub = TRUE)|> cols_width(
+    treatmentPlacebo ~ px(150)
+  )|>cols_align(
+    align = "center",
+    columns = c(treatmentPlacebo,conc)
+  )
+```
