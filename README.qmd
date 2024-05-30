@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "README"
 author: "Wang Shufan"
 date: "2024-03-04"
 output: html_document
@@ -9,25 +9,18 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
-pacman::p_load(tidyverse,targets,readxl,gt)
+
+
+```{r,echo=FALSE}
+
+pacman::p_load(tidyverse,targets,readxl,gt,showtext)
 ```
+# Introduction
 
-### Effect of treatment on the effect of growth factor on the gene expression
-This project aims to analysis how the difference treatments influence the growth factor? and the gene expression.
+This project aimed to investigate how the new treatment "Acitivating factor 42" influence the cell's gene expression. The dataset in the project is provided by Dr. Karl Beartor.
 
-The data is provided by Karl Beartor.
+Here is the introduction of the dataset:
 
-We will output the statis and plots that can show relationship, and display them in some slides.
-
-### 2024-03-04
-
-## Problem 1: the aim of the project
-Analyze the effect of the treatment on the gene expression or on the growth factor? Or analyze the effect of the growth factor of the gene expression?
-
-NO groth factor in the data = gene expression?
-
-### Data
 The csv dataset includes 88 obversations and 5 variables. 
 
 cell-line: categorical variables with values "Wild-type", "Cell-type 101", "WILD-TYPE" and "CELL-TYPE 101".
@@ -40,20 +33,28 @@ conc: concentration. numerical variables. with integer values ranges from 0 to 1
 
 gene_expression: numerical variables. response variables
 
+In the project, we cleaned the dataset and performed the exploratory data analysis. According to the exploratory data results, we tried different mixed-effect linear models. We selected the final model with smallest AIC and performed the Likelihood ratio tests with significant levels of 0.05 to investigated whether the complex model with better performance is significantly better than other sampler models. Meanwhile, the Likelihood ratio tests also helped as determine whether a specific predictor had significant influence on the predictions.
 
-no missing values
+A IMRaD report summrized works done and results got in this project, which can be found in 
 
-## Question 2: The values in cell-line
-Are "wild-type" and "WILD-TYPE" the same type? 
-Are "Cell-type 101" and "CELL-TYPE" the same type?
+```{r,echo=FALSE}
+here::here("resources/IMRad.pdf")
+```
 
-## Question 3: The meaning of the name variable
-What does the "name" variable represent for?
+A Powerpoint of EDA can be founded in
+```{r,echo=FALSE}
+here::here("resources/gene_EDA.pptx")
+```
 
-## Question 4: The concentration variable.
-Do the values of the "conc" variable have 
 
-### 2024-3-3 EDA for raw data
+
+# 2024-3-3 EDA for raw data
+
+The code of exploring the raw data can be found in 
+```{r,echo=FALSE}
+here::here("R/gene_raw")
+```
+
 
 The EDA of the raw data has been done to see if the data needed to be cleaned. All the operations's results were stored in this list.
 
@@ -111,12 +112,25 @@ raw_EDA_list$expression_histgram
 
 ## 2024-3-10 Data clean
 
+The code of data cleaning can be founded in 
+```{r,echo=FALSE}
+here::here("R/clean_gene")
+```
+
+
 We cleaned the data by fixing all the typos in the dataset.
 ```{r}
 tar_load(gene_clean)
 head(gene_clean)
 ```
-## 2024-3-11 EDA for cleaned data
+# 2024-3-11 EDA for cleaned data
+
+Tne code of EDA for cleaned data can be found in 
+
+```{r,echo=FALSE}
+here::here("R/EDA_gene_cleaned")
+```
+
 
 In @fig-coplot, every subplot represents how gene expression changes with the values of growth factors for different names.  
 The name strongly influenced the relationship between gene expression and growth factors.
@@ -200,23 +214,41 @@ We modified @fig-scatter_wild and @fig-scatter_cell, making them fit the require
 here::here("figs")
 ```
 
-
-In this README file, for easier displaying, we used the default font type and size in 
-```{r}
-citation("ggplot2")
+and the function used to generate the figure is stored in 
+```{r,echo=FALSE}
+here::here("R/gene_conference")
 ```
+Here is the preview of the conference file. We displayed the .png version of it because Quarto doesn't support display the .tiff file.
 
-```{r}
-tar_read(conference_plot)
-```
+![Conference plot](figs/2024-04-03_Karl_Conference_figure.png)
+
+
 
 
 # 2024-5-22 Sample Size
+
+We calculated the minimum sample size required for the linear model with at least one predictor significantly influencing the gene expression.
+
+The predictors are: concentration, cell age, treatment (two levels), cell type (two levels) and media (two levels). The previous study got an $R^2=0.1$ between predictors and the response level. The power and significance level needed are 90% and 0.05, respectively.
+
+The minimum sample size needed is 154. We rounded up the resulted computed by the code to ensure the value meets the requirements.
 ```{r}
 tar_load(sample_size)
 sample_size
 ```
+The R function used to compute this sample size is stored in 
+
+```{r,echo=FALSE}
+here::here("R/gene_samplesize")
+```
+
 # 2024-5-23 Models
+
+The function of building models, model selection and model visulization is stored in 
+```{r,echo=FALSE}
+here::here("R/gene_mixeffect")
+```
+
 
 We built 5 mix-effect linear model for the gene data. The response variable is gene_expression and each model had different the predictors and random effect. We selected the model with smallest AIC and significantly better than the other simper models, which is determined by p-values of Likelihood ratio tests.
 
@@ -224,36 +256,50 @@ We built 5 mix-effect linear model for the gene data. The response variable is g
 tar_load(gene_models)
 ```
 
-Model 1
+### Model 1
+
 predictors:  conc and cell_line;
+
 random effect: random intercepts for name;
 ```{r}
 gene_models$me1
 ```
-Model 2:
+### Model 2:
+
 predictors: treatment, conc and cell_line;
+
 interaction term: treat and conc;
+
 random effect: random intercepts for name;
 ```{r}
 gene_models$me2
+
 ```
-Model 3:
+
+
+### Model 3:
 predictors: treatment, conc and cell_line;
-interaction term: treatment and conc
+
+interaction term: treatment and conc;
+
 random effect: random intercepts for name;
 ```{r}
 gene_models$me3
 ```
-Model 4:
+### Model 4:
 predictors: treatment, conc;
+
 interaction term: treatment and conc;
+
 random effect: name had random intercepts and slopes for conc and treatment were influenced by name.
 ```{r}
 gene_models$me4
 ```
-Model 4:
+### Model 5:
 predictors: treatment, conc and cell line;
+
 interaction term: treatment and conc;
+
 random effect: name had random intercepts and slopes for conc and treatment were influenced by name.
 ```{r}
 gene_models$me5
@@ -281,12 +327,15 @@ gene_models$final_model
 #| label: tab-coef_final
 gene_models$coe_final
 ```
+
+
+
 README file path:
-```{r}
+```{r,echo=FALSE}
 here::here("README.qmd")
 ```
 Project path
-```{r}
+```{r,echo=FALSE}
 here::here()
 ```
 

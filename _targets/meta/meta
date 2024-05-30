@@ -1,8 +1,8 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|2e01990057e022a5|||||||||||||||
+.Random.seed|object|11f304afcbde7493|||||||||||||||
 clean_gene|function|e20aeb1414e98103|||||||||||||||
 coe_tab|stem|79b817e5dc5dbb6b|cf998a2c0061a3a5|b808499e9330ff85|-1122278512||t19872.0839139742s||3163|rds|local|vector|||0||could not find function get_coe_tab
-conference_plot|stem|b69ee8ed14106280|c6e8995ceead49c4|931b844318ebcf75|-1903181739||t19872.1497845431s|6f7bffa68c2d47f9|359865|rds|local|vector|||0.35||
+conference_plot|stem|9903c7133a092a86|c6e8995ceead49c4|3e3b6f4c6f9d836d|-1903181739||t19873.4235173854s|84f177228c603862|371517|rds|local|vector|||0.75|font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScript font database. font family times not found in PostScrip|
 EDA_gene_cleaned|function|451d5f23dd37e1a6|||||||||||||||
 EDA_gene_raw|function|9ac8f2ff70ccd4c3|||||||||||||||
 gene_boxplot|stem|9cec212383c2a81a|193969025af17fa6|f5d336aea811e690|1722420760||t19872.0839161309s|72605d8962212841|106847|rds|local|vector|||0||
@@ -19,8 +19,8 @@ get_coe_tab|function|ea2b163a87953d93|||||||||||||||
 get_tables|function|5c5c97312b697ea1|||||||||||||||
 p|object|82228657203f8357|||||||||||||||
 plot_boxplot|function|d22aed91856e9cac|||||||||||||||
-plot_conference|function|4ebb536c81021627|||||||||||||||
+plot_conference|function|4760908f5aed341c|||||||||||||||
 plot_scatter|function|5e145bfe3877af55|||||||||||||||
-readme|stem|13d79294eff78602|340f30a7d03efc0b|ac9ac99053253306|980901812|README.html*README_files*README.qmd|t19872.167171371s|e8901536725c5352|1132092|file|local|vector|||7.5||
+readme|stem|46c0fb96ad4f71f5|340f30a7d03efc0b|308d231cc0e5f24a|980901812|README.html*README_files*README.qmd|t19873.4236123176s|3b11535f1374d85b|1423574|file|local|vector|||8.12||
 sample_size|stem|3aac6a95854befd0|78c363aa5e131f4d|7ee87c1356df2602|-1641849894||t19872.083904775s|d0ec9a5a63f98b43|53|rds|local|vector|||2.12||
 scatter_plots|stem|9fe5d6ce1824435c|5c87da958baeadac|e88c4f7442973891|1063551923||t19872.0839178871s|933b13f375285434|91480|rds|local|vector|||0.01||

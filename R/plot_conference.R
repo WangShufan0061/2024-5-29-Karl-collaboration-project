@@ -6,17 +6,17 @@ gene_clean$name <- str_remove(gene_clean$name, "GL-")
 wild_type_labels = gene_clean|>filter(cell_line=="Wild-type" & conc==10)
 cell_type_labels = gene_clean|>filter(cell_line!="Wild-type" & conc==10)
 
-## Add font
-# font_add(
-#   family = "times",
-#   regular = here::here(
-#     "resources","Times New Roman.ttf"
-#   )
-# )
+# Add font
+font_add(
+  family = "times",
+  regular = here::here(
+    "resources","Times New Roman.ttf"
+  )
+)
 
 # Set running
-# showtext_auto()
-# showtext_opts(dpi=500)#change the font size (use showtext and geom_label simultanously will make the output's font size really small )
+showtext_auto()
+showtext_opts(dpi=500)#change the font size (use showtext and geom_label simultanously will make the output's font size really small )
 # plot cell_line = wild-type
 p1<-gene_clean|>
   filter(cell_line=="Wild-type")|>
@@ -31,7 +31,7 @@ p1<-gene_clean|>
                    #max.overlaps	=1,
                    xlim = c(10.3, 13),#position
                    direction     = "y",#alligement
-                   #family = "times"#font type
+                   family = "times"#font type
                    )+
   scale_x_continuous(breaks = gene_clean$conc[c(T,F,F)])+# specifiy the x-axis
   expand_limits(x=c(0,11))+
@@ -41,8 +41,8 @@ p1<-gene_clean|>
        y = "Gene Expression")+
   theme_bw()+
   theme(legend.position = "bottom",
-        legend.text = element_text(size=20)
-        #text = element_text(family = "times")
+        legend.text = element_text(size=20),
+        text = element_text(family = "times")
         )
 
 
@@ -58,8 +58,8 @@ p2<-gene_clean|>
                    data= cell_type_labels,
                    #max.overlaps	=1,
                    xlim = c(10.2, 12),
-                   direction     = "y"
-                   #family = "times"
+                   direction     = "y",
+                   family = "times"
   )+
   scale_x_continuous(breaks = gene_clean$conc[c(T,F,F)])+
   expand_limits(x=c(0,11))+
@@ -69,27 +69,27 @@ p2<-gene_clean|>
        y = "Gene Expression")+
   theme_bw()+
   theme(legend.position = "bottom",
-        legend.text = element_text(size=20)
-        #text = element_text(family = "times")
+        legend.text = element_text(size=20),
+        text = element_text(family = "times")
         )
 
-# p3<-(p1|p2)+
-#   plot_layout(guides = "collect") & theme(legend.position = 'bottom', legend.text = element_text(size=15))&
-#   plot_annotation(
-#     tag_levels = "A"
-#   )
+p3<-(p1|p2)+
+  plot_layout(guides = "collect") & theme(legend.position = 'bottom', legend.text = element_text(size=15))&
+  plot_annotation(
+    tag_levels = "A"
+  )
 
 
 
-p3<-ggarrange(p1,p2,
-          labels = c("A", "B"),
-          ncol = 2, nrow = 1,common.legend = TRUE, legend="bottom")
+# p3<-ggarrange(p1,p2,
+#           labels = c("A", "B"),
+#           ncol = 2, nrow = 1,common.legend = TRUE, legend="bottom")
 
 
 
 
 
-#ggsave(here::here("figs/2024-04-03_Karl_Conference_figure.tiff"),width = 9,height = 6, units = "in",dpi = 500)
+ggsave(here::here("figs/2024-04-03_Karl_Conference_figure.tiff"),width = 9,height = 6, units = "in",dpi = 500)
 #showtext_end()
 
 p3
