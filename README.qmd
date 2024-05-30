@@ -69,7 +69,7 @@ I firstly checked the summary of the raw data.
 The raw data have 88 observations and 5 variables: 3 categoritical variables (cell_line, treatment, name) and 2 numerical variables(conc, gene_expression)
 
 ```{r}
-raw_EDA_list$summary
+print(raw_EDA_list$summary, width=Inf)
 ```
 According to @fig-missing-value, there is no missing values in the dataset.
 ```{r}

@@ -1,6 +1,19 @@
+# This is a function to conduct the exploratory data analysis for gene dataset
+# Input:
+#   The cleaned gene dataset
+# Outputs:
+#   A list of tables and figures:
+#     mean_GeneExp: A mean table of gene expressions with different concentrations of growth factors
+#     sd_GeneExp: A standard deviation of gene expressions with different concentrations of growth factors
+#     boxplot_Gene_vs_Conc: A box plot of gene expression vs conc with different treatments
+#     scatter_Gene_vs_Conc_wild: A scatter plot of gene expression vs conc with different treatments, for cells with "Wild-type".
+#     scatter_Gene_vs_Conc_cell: A scatter plot of gene expression vs conc with different treatments, for cells with "Cell-type 101".
+
 EDA_gene_cleaned <- function(gene_clean){
+  # set the values in the tables with 3 decimals
   options(digits = 3)
-  ## Get mean expression table
+
+  # Get mean expression table
   mean_tab <-gene_clean|>
     group_by(as.factor(conc),treatment)|>
     summarize(formatC(mean(gene_expression), digits = 3, format = "f"))
@@ -17,7 +30,8 @@ EDA_gene_cleaned <- function(gene_clean){
       title = "Mean values of gene expression",
       subtitle = "under different growth factors and treatments"
     )
-  ## Get standard derivation gene expression table
+
+  # Get standard derivation gene expression table
   sd_tab <- gene_clean|>
     group_by(as.factor(conc),treatment)|>
     summarize(formatC(sd(gene_expression), digits = 3, format = "f"))
@@ -44,7 +58,8 @@ EDA_gene_cleaned <- function(gene_clean){
     theme(legend.position = "bottom")+
     ggtitle("A box plot of gene expression vs growth factor with different treatments")+
     theme_bw()
-  # scatter plot of gene expression vs conc with different treatment, name and cell line
+
+  # A scatter plot of gene expression vs conc with different treatments, for cells with "Wild-type".
   scatter1<-gene_clean|>
     filter(cell_line=="Wild-type")|>
     ggplot(aes(conc, gene_expression, col=treatment,shape=name))+
@@ -53,6 +68,8 @@ EDA_gene_cleaned <- function(gene_clean){
     ylab("Gene expression")+
     ggtitle("Wild-type")+
     theme_bw()
+
+  #A scatter plot of gene expression vs conc with different treatments, for cells with "Cell-type 101".
   scatter2<-gene_clean|>
     filter(cell_line!="Wild-type")|>
     ggplot(aes(conc, gene_expression,shape=name,col=treatment))+
@@ -62,6 +79,7 @@ EDA_gene_cleaned <- function(gene_clean){
     ggtitle("Cell-type 101")+
     theme_bw()
 
+  # store the results in a list
   results<-list(
     "mean_GeneExp"=mean_tab,
     "sd_GeneExp"=sd_tab,

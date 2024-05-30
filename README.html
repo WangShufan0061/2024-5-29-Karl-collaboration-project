@@ -9,7 +9,7 @@
 <meta name="author" content="Wang Shufan">
 <meta name="dcterms.date" content="2024-03-04">
 
-<title>Untitled</title>
+<title>README</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Untitled</h1>
+<h1 class="title">README</h1>
 </div>
 
 
@@ -129,7 +129,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>A Powerpoint of EDA can be founded in</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"resources/gene_EDA.pptx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "C:/Users/11961/Desktop/collaboration-project/resources/gene_EDA.pptx"</code></pre>
 </div>
@@ -145,12 +144,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The EDA of the raw data has been done to see if the data needed to be cleaned. All the operations’s results were stored in this list.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(gene_raw_EDA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list <span class="ot">&lt;-</span> <span class="fu">tar_read</span>(gene_raw_EDA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I firstly checked the summary of the raw data.</p>
 <p>The raw data have 88 observations and 5 variables: 3 categoritical variables (cell_line, treatment, name) and 2 numerical variables(conc, gene_expression)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(raw_EDA_list<span class="sc">$</span>summary, <span class="at">width=</span><span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 17
   skim_type skim_variable   n_missing complete_rate character.min character.max
@@ -160,15 +159,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 3 character name                    0             1             6             6
 4 numeric   conc                    0             1            NA            NA
 5 numeric   gene_expression         0             1            NA            NA
-# ℹ 11 more variables: character.empty &lt;int&gt;, character.n_unique &lt;int&gt;,
-#   character.whitespace &lt;int&gt;, numeric.mean &lt;dbl&gt;, numeric.sd &lt;dbl&gt;,
-#   numeric.p0 &lt;dbl&gt;, numeric.p25 &lt;dbl&gt;, numeric.p50 &lt;dbl&gt;, numeric.p75 &lt;dbl&gt;,
-#   numeric.p100 &lt;dbl&gt;, numeric.hist &lt;chr&gt;</code></pre>
+  character.empty character.n_unique character.whitespace numeric.mean
+*           &lt;int&gt;              &lt;int&gt;                &lt;int&gt;        &lt;dbl&gt;
+1               0                  4                    0         NA  
+2               0                  4                    0         NA  
+3               0                 12                    0         NA  
+4              NA                 NA                   NA          5  
+5              NA                 NA                   NA         14.3
+  numeric.sd numeric.p0 numeric.p25 numeric.p50 numeric.p75 numeric.p100
+*      &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+1      NA         NA          NA           NA          NA           NA  
+2      NA         NA          NA           NA          NA           NA  
+3      NA         NA          NA           NA          NA           NA  
+4       3.18       0           2            5           8           10  
+5       9.76       2.58        7.03        11.1        19.4         44.4
+  numeric.hist
+* &lt;chr&gt;       
+1 &lt;NA&gt;        
+2 &lt;NA&gt;        
+3 &lt;NA&gt;        
+4 ▇▅▅▅▅       
+5 ▇▃▂▁▁       </code></pre>
 </div>
 </div>
 <p>According to <a href="#fig-missing-value">Figure&nbsp;1</a>, there is no missing values in the dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>missing_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>missing_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-missing-value" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -180,7 +196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>There are two class in the cell_line: “Cell-type 101” and “Wild-type”. We need to fix the typos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>cell_line_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>cell_line_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
 # Groups:   cell_line [4]
@@ -194,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>2 classes in treatment: Activating factor 42” and “Placebo”. Need to fix the typos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>treatment_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>treatment_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
 # Groups:   treatment [4]
@@ -208,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>8 classes in name. Need to fix the typos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>name_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>name_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 2
 # Groups:   name [12]
@@ -230,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>According to <a href="#fig-histgrow">Figure&nbsp;2</a>, all 8 classes of cells have been tested with 11 different growth factors. No missing tests. :D</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>conc_histgram</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>conc_histgram</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
@@ -245,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>According to <a href="#fig-histgenexp">Figure&nbsp;3</a>, the distribution of gene expression is unimodal and right-skewed. The majority of observations had gene expression &lt;25. After checking with Karl, the gene expression &gt; 25 are not outliers</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>expression_histgram</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>raw_EDA_list<span class="sc">$</span>expression_histgram</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
@@ -268,8 +284,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We cleaned the data by fixing all the typos in the dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(gene_clean)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gene_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(gene_clean)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gene_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
   cell_line treatment name    conc gene_expression
@@ -295,8 +311,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In <a href="#fig-coplot">Figure&nbsp;4</a>, every subplot represents how gene expression changes with the values of growth factors for different names.<br>
 The name strongly influenced the relationship between gene expression and growth factors.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(gene_clean)[<span class="dv">4</span>]<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'growth_factor'</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coplot</span>(gene_expression <span class="sc">~</span> growth_factor<span class="sc">|</span>name,<span class="at">data=</span>gene_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(gene_clean)[<span class="dv">4</span>]<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'growth_factor'</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coplot</span>(gene_expression <span class="sc">~</span> growth_factor<span class="sc">|</span>name,<span class="at">data=</span>gene_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-coplot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -307,12 +323,12 @@ The name strongly influenced the relationship between gene expression and growth
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(gene_clean_EDA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(gene_clean_EDA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Scatter plots of gene expression and growth factor are drawn.</p>
 <p>Both <a href="#fig-scatter_wild">Figure&nbsp;5</a> and <a href="#fig-scatter_cell">Figure&nbsp;6</a> indicated that the strong linear relationships between gene expression and growth factor were greatly influenced by the names, which is consistenty with <a href="#fig-coplot">Figure&nbsp;4</a>. Moreover, the effects of treatment “Activating factor 42” on gene expression were also varied with different name. A mixed-effect model with random intercept and coefficients may fit the data well.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gene_clean_EDA<span class="sc">$</span>scatter_Gene_vs_Conc_wild</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gene_clean_EDA<span class="sc">$</span>scatter_Gene_vs_Conc_wild</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-scatter_wild" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -323,7 +339,7 @@ The name strongly influenced the relationship between gene expression and growth
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>gene_clean_EDA<span class="sc">$</span>scatter_Gene_vs_Conc_cell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gene_clean_EDA<span class="sc">$</span>scatter_Gene_vs_Conc_cell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-scatter_cell" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -345,7 +361,7 @@ The name strongly influenced the relationship between gene expression and growth
 <li><p>For different treatment, the IQRs of the same growth factor are similar.</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>gene_clean_EDA<span class="sc">$</span>boxplot_Gene_vs_Conc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>gene_clean_EDA<span class="sc">$</span>boxplot_Gene_vs_Conc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-boxplot" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -361,26 +377,26 @@ The name strongly influenced the relationship between gene expression and growth
 <li>“Activating factor 42” led to a larger mean than “Placebo”.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>gene_clean_EDA<span class="sc">$</span>mean_GeneExp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>gene_clean_EDA<span class="sc">$</span>mean_GeneExp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="shzopbypjy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#shzopbypjy table {
+<div id="qcyxsftrku" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qcyxsftrku table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#shzopbypjy thead, #shzopbypjy tbody, #shzopbypjy tfoot, #shzopbypjy tr, #shzopbypjy td, #shzopbypjy th {
+#qcyxsftrku thead, #qcyxsftrku tbody, #qcyxsftrku tfoot, #qcyxsftrku tr, #qcyxsftrku td, #qcyxsftrku th {
   border-style: none;
 }
 
-#shzopbypjy p {
+#qcyxsftrku p {
   margin: 0;
   padding: 0;
 }
 
-#shzopbypjy .gt_table {
+#qcyxsftrku .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -406,12 +422,12 @@ The name strongly influenced the relationship between gene expression and growth
   border-left-color: #D3D3D3;
 }
 
-#shzopbypjy .gt_caption {
+#qcyxsftrku .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#shzopbypjy .gt_title {
+#qcyxsftrku .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -423,7 +439,7 @@ The name strongly influenced the relationship between gene expression and growth
   border-bottom-width: 0;
 }
 
-#shzopbypjy .gt_subtitle {
+#qcyxsftrku .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -435,7 +451,7 @@ The name strongly influenced the relationship between gene expression and growth
   border-top-width: 0;
 }
 
-#shzopbypjy .gt_heading {
+#qcyxsftrku .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -447,13 +463,13 @@ The name strongly influenced the relationship between gene expression and growth
   border-right-color: #D3D3D3;
 }
 
-#shzopbypjy .gt_bottom_border {
+#qcyxsftrku .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#shzopbypjy .gt_col_headings {
+#qcyxsftrku .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -468,7 +484,7 @@ The name strongly influenced the relationship between gene expression and growth
   border-right-color: #D3D3D3;
 }
 
-#shzopbypjy .gt_col_heading {
+#qcyxsftrku .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -488,7 +504,7 @@ The name strongly influenced the relationship between gene expression and growth
   overflow-x: hidden;
 }
 
-#shzopbypjy .gt_column_spanner_outer {
+#qcyxsftrku .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -500,15 +516,15 @@ The name strongly influenced the relationship between gene expression and growth
   padding-right: 4px;
 }
 
-#shzopbypjy .gt_column_spanner_outer:first-child {
+#qcyxsftrku .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#shzopbypjy .gt_column_spanner_outer:last-child {
+#qcyxsftrku .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#shzopbypjy .gt_column_spanner {
+#qcyxsftrku .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -520,11 +536,11 @@ The name strongly influenced the relationship between gene expression and growth
   width: 100%;
 }
 
-#shzopbypjy .gt_spanner_row {
+#qcyxsftrku .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#shzopbypjy .gt_group_heading {
+#qcyxsftrku .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -550,7 +566,7 @@ The name strongly influenced the relationship between gene expression and growth
   text-align: left;
 }
 
-#shzopbypjy .gt_empty_group_heading {
+#qcyxsftrku .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -565,15 +581,15 @@ The name strongly influenced the relationship between gene expression and growth
   vertical-align: middle;
 }
 
-#shzopbypjy .gt_from_md > :first-child {
+#qcyxsftrku .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#shzopbypjy .gt_from_md > :last-child {
+#qcyxsftrku .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#shzopbypjy .gt_row {
+#qcyxsftrku .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -592,7 +608,7 @@ The name strongly influenced the relationship between gene expression and growth
   overflow-x: hidden;
 }
 
-#shzopbypjy .gt_stub {
+#qcyxsftrku .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -605,7 +621,7 @@ The name strongly influenced the relationship between gene expression and growth
   padding-right: 5px;
 }
 
-#shzopbypjy .gt_stub_row_group {
+#qcyxsftrku .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -619,15 +635,15 @@ The name strongly influenced the relationship between gene expression and growth
   vertical-align: top;
 }
 
-#shzopbypjy .gt_row_group_first td {
+#qcyxsftrku .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#shzopbypjy .gt_row_group_first th {
+#qcyxsftrku .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#shzopbypjy .gt_summary_row {
+#qcyxsftrku .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -637,16 +653,16 @@ The name strongly influenced the relationship between gene expression and growth
   padding-right: 5px;
 }
 
-#shzopbypjy .gt_first_summary_row {
+#qcyxsftrku .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#shzopbypjy .gt_first_summary_row.thick {
+#qcyxsftrku .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#shzopbypjy .gt_last_summary_row {
+#qcyxsftrku .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -656,7 +672,7 @@ The name strongly influenced the relationship between gene expression and growth
   border-bottom-color: #D3D3D3;
 }
 
-#shzopbypjy .gt_grand_summary_row {
+#qcyxsftrku .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -666,7 +682,7 @@ The name strongly influenced the relationship between gene expression and growth
   padding-right: 5px;
 }
 
-#shzopbypjy .gt_first_grand_summary_row {
+#qcyxsftrku .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -676,7 +692,7 @@ The name strongly influenced the relationship between gene expression and growth
   border-top-color: #D3D3D3;
 }
 
-#shzopbypjy .gt_last_grand_summary_row_top {
+#qcyxsftrku .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -686,11 +702,11 @@ The name strongly influenced the relationship between gene expression and growth
   border-bottom-color: #D3D3D3;
 }
 
-#shzopbypjy .gt_striped {
+#qcyxsftrku .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#shzopbypjy .gt_table_body {
+#qcyxsftrku .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -699,7 +715,7 @@ The name strongly influenced the relationship between gene expression and growth
   border-bottom-color: #D3D3D3;
 }
 
-#shzopbypjy .gt_footnotes {
+#qcyxsftrku .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -713,7 +729,7 @@ The name strongly influenced the relationship between gene expression and growth
   border-right-color: #D3D3D3;
 }
 
-#shzopbypjy .gt_footnote {
+#qcyxsftrku .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -722,7 +738,7 @@ The name strongly influenced the relationship between gene expression and growth
   padding-right: 5px;
 }
 
-#shzopbypjy .gt_sourcenotes {
+#qcyxsftrku .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -736,7 +752,7 @@ The name strongly influenced the relationship between gene expression and growth
   border-right-color: #D3D3D3;
 }
 
-#shzopbypjy .gt_sourcenote {
+#qcyxsftrku .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -744,63 +760,63 @@ The name strongly influenced the relationship between gene expression and growth
   padding-right: 5px;
 }
 
-#shzopbypjy .gt_left {
+#qcyxsftrku .gt_left {
   text-align: left;
 }
 
-#shzopbypjy .gt_center {
+#qcyxsftrku .gt_center {
   text-align: center;
 }
 
-#shzopbypjy .gt_right {
+#qcyxsftrku .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#shzopbypjy .gt_font_normal {
+#qcyxsftrku .gt_font_normal {
   font-weight: normal;
 }
 
-#shzopbypjy .gt_font_bold {
+#qcyxsftrku .gt_font_bold {
   font-weight: bold;
 }
 
-#shzopbypjy .gt_font_italic {
+#qcyxsftrku .gt_font_italic {
   font-style: italic;
 }
 
-#shzopbypjy .gt_super {
+#qcyxsftrku .gt_super {
   font-size: 65%;
 }
 
-#shzopbypjy .gt_footnote_marks {
+#qcyxsftrku .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#shzopbypjy .gt_asterisk {
+#qcyxsftrku .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#shzopbypjy .gt_indent_1 {
+#qcyxsftrku .gt_indent_1 {
   text-indent: 5px;
 }
 
-#shzopbypjy .gt_indent_2 {
+#qcyxsftrku .gt_indent_2 {
   text-indent: 10px;
 }
 
-#shzopbypjy .gt_indent_3 {
+#qcyxsftrku .gt_indent_3 {
   text-indent: 15px;
 }
 
-#shzopbypjy .gt_indent_4 {
+#qcyxsftrku .gt_indent_4 {
   text-indent: 20px;
 }
 
-#shzopbypjy .gt_indent_5 {
+#qcyxsftrku .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -871,26 +887,26 @@ and treatement</p></caption>
 <li>“Activating factor 42” led to a larger variance than “Placebo”.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gene_clean_EDA<span class="sc">$</span>sd_GeneExp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>gene_clean_EDA<span class="sc">$</span>sd_GeneExp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="rdimwwbpfr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rdimwwbpfr table {
+<div id="dyjntabnhr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dyjntabnhr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rdimwwbpfr thead, #rdimwwbpfr tbody, #rdimwwbpfr tfoot, #rdimwwbpfr tr, #rdimwwbpfr td, #rdimwwbpfr th {
+#dyjntabnhr thead, #dyjntabnhr tbody, #dyjntabnhr tfoot, #dyjntabnhr tr, #dyjntabnhr td, #dyjntabnhr th {
   border-style: none;
 }
 
-#rdimwwbpfr p {
+#dyjntabnhr p {
   margin: 0;
   padding: 0;
 }
 
-#rdimwwbpfr .gt_table {
+#dyjntabnhr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -916,12 +932,12 @@ and treatement</p></caption>
   border-left-color: #D3D3D3;
 }
 
-#rdimwwbpfr .gt_caption {
+#dyjntabnhr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rdimwwbpfr .gt_title {
+#dyjntabnhr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -933,7 +949,7 @@ and treatement</p></caption>
   border-bottom-width: 0;
 }
 
-#rdimwwbpfr .gt_subtitle {
+#dyjntabnhr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -945,7 +961,7 @@ and treatement</p></caption>
   border-top-width: 0;
 }
 
-#rdimwwbpfr .gt_heading {
+#dyjntabnhr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -957,13 +973,13 @@ and treatement</p></caption>
   border-right-color: #D3D3D3;
 }
 
-#rdimwwbpfr .gt_bottom_border {
+#dyjntabnhr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rdimwwbpfr .gt_col_headings {
+#dyjntabnhr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -978,7 +994,7 @@ and treatement</p></caption>
   border-right-color: #D3D3D3;
 }
 
-#rdimwwbpfr .gt_col_heading {
+#dyjntabnhr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -998,7 +1014,7 @@ and treatement</p></caption>
   overflow-x: hidden;
 }
 
-#rdimwwbpfr .gt_column_spanner_outer {
+#dyjntabnhr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1010,15 +1026,15 @@ and treatement</p></caption>
   padding-right: 4px;
 }
 
-#rdimwwbpfr .gt_column_spanner_outer:first-child {
+#dyjntabnhr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rdimwwbpfr .gt_column_spanner_outer:last-child {
+#dyjntabnhr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rdimwwbpfr .gt_column_spanner {
+#dyjntabnhr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1030,11 +1046,11 @@ and treatement</p></caption>
   width: 100%;
 }
 
-#rdimwwbpfr .gt_spanner_row {
+#dyjntabnhr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rdimwwbpfr .gt_group_heading {
+#dyjntabnhr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1060,7 +1076,7 @@ and treatement</p></caption>
   text-align: left;
 }
 
-#rdimwwbpfr .gt_empty_group_heading {
+#dyjntabnhr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1075,15 +1091,15 @@ and treatement</p></caption>
   vertical-align: middle;
 }
 
-#rdimwwbpfr .gt_from_md > :first-child {
+#dyjntabnhr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rdimwwbpfr .gt_from_md > :last-child {
+#dyjntabnhr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rdimwwbpfr .gt_row {
+#dyjntabnhr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1102,7 +1118,7 @@ and treatement</p></caption>
   overflow-x: hidden;
 }
 
-#rdimwwbpfr .gt_stub {
+#dyjntabnhr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1115,7 +1131,7 @@ and treatement</p></caption>
   padding-right: 5px;
 }
 
-#rdimwwbpfr .gt_stub_row_group {
+#dyjntabnhr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1129,15 +1145,15 @@ and treatement</p></caption>
   vertical-align: top;
 }
 
-#rdimwwbpfr .gt_row_group_first td {
+#dyjntabnhr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rdimwwbpfr .gt_row_group_first th {
+#dyjntabnhr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rdimwwbpfr .gt_summary_row {
+#dyjntabnhr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1147,16 +1163,16 @@ and treatement</p></caption>
   padding-right: 5px;
 }
 
-#rdimwwbpfr .gt_first_summary_row {
+#dyjntabnhr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rdimwwbpfr .gt_first_summary_row.thick {
+#dyjntabnhr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rdimwwbpfr .gt_last_summary_row {
+#dyjntabnhr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1166,7 +1182,7 @@ and treatement</p></caption>
   border-bottom-color: #D3D3D3;
 }
 
-#rdimwwbpfr .gt_grand_summary_row {
+#dyjntabnhr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1176,7 +1192,7 @@ and treatement</p></caption>
   padding-right: 5px;
 }
 
-#rdimwwbpfr .gt_first_grand_summary_row {
+#dyjntabnhr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1186,7 +1202,7 @@ and treatement</p></caption>
   border-top-color: #D3D3D3;
 }
 
-#rdimwwbpfr .gt_last_grand_summary_row_top {
+#dyjntabnhr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1196,11 +1212,11 @@ and treatement</p></caption>
   border-bottom-color: #D3D3D3;
 }
 
-#rdimwwbpfr .gt_striped {
+#dyjntabnhr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rdimwwbpfr .gt_table_body {
+#dyjntabnhr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1209,7 +1225,7 @@ and treatement</p></caption>
   border-bottom-color: #D3D3D3;
 }
 
-#rdimwwbpfr .gt_footnotes {
+#dyjntabnhr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1223,7 +1239,7 @@ and treatement</p></caption>
   border-right-color: #D3D3D3;
 }
 
-#rdimwwbpfr .gt_footnote {
+#dyjntabnhr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1232,7 +1248,7 @@ and treatement</p></caption>
   padding-right: 5px;
 }
 
-#rdimwwbpfr .gt_sourcenotes {
+#dyjntabnhr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1246,7 +1262,7 @@ and treatement</p></caption>
   border-right-color: #D3D3D3;
 }
 
-#rdimwwbpfr .gt_sourcenote {
+#dyjntabnhr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1254,63 +1270,63 @@ and treatement</p></caption>
   padding-right: 5px;
 }
 
-#rdimwwbpfr .gt_left {
+#dyjntabnhr .gt_left {
   text-align: left;
 }
 
-#rdimwwbpfr .gt_center {
+#dyjntabnhr .gt_center {
   text-align: center;
 }
 
-#rdimwwbpfr .gt_right {
+#dyjntabnhr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rdimwwbpfr .gt_font_normal {
+#dyjntabnhr .gt_font_normal {
   font-weight: normal;
 }
 
-#rdimwwbpfr .gt_font_bold {
+#dyjntabnhr .gt_font_bold {
   font-weight: bold;
 }
 
-#rdimwwbpfr .gt_font_italic {
+#dyjntabnhr .gt_font_italic {
   font-style: italic;
 }
 
-#rdimwwbpfr .gt_super {
+#dyjntabnhr .gt_super {
   font-size: 65%;
 }
 
-#rdimwwbpfr .gt_footnote_marks {
+#dyjntabnhr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rdimwwbpfr .gt_asterisk {
+#dyjntabnhr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rdimwwbpfr .gt_indent_1 {
+#dyjntabnhr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rdimwwbpfr .gt_indent_2 {
+#dyjntabnhr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rdimwwbpfr .gt_indent_3 {
+#dyjntabnhr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rdimwwbpfr .gt_indent_4 {
+#dyjntabnhr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rdimwwbpfr .gt_indent_5 {
+#dyjntabnhr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1386,7 +1402,6 @@ growth factor and treatement</p></caption>
 </div>
 <p>and the function used to generate the figure is stored in</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"R/gene_conference"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "C:/Users/11961/Desktop/collaboration-project/R/gene_conference"</code></pre>
 </div>
@@ -1405,15 +1420,14 @@ growth factor and treatement</p></caption>
 <p>The predictors are: concentration, cell age, treatment (two levels), cell type (two levels) and media (two levels). The previous study got an <span class="math inline">\(R^2=0.1\)</span> between predictors and the response level. The power and significance level needed are 90% and 0.05, respectively.</p>
 <p>The minimum sample size needed is 154. We rounded up the resulted computed by the code to ensure the value meets the requirements.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(sample_size)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>sample_size</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(sample_size)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>sample_size</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 154</code></pre>
 </div>
 </div>
 <p>The R function used to compute this sample size is stored in</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"R/gene_samplesize"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "C:/Users/11961/Desktop/collaboration-project/R/gene_samplesize"</code></pre>
 </div>
@@ -1423,18 +1437,20 @@ growth factor and treatement</p></caption>
 <h1>2024-5-23 Models</h1>
 <p>The function of building models, model selection and model visulization is stored in</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"R/gene_mixeffect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "C:/Users/11961/Desktop/collaboration-project/R/gene_mixeffect"</code></pre>
 </div>
 </div>
 <p>We built 5 mix-effect linear model for the gene data. The response variable is gene_expression and each model had different the predictors and random effect. We selected the model with smallest AIC and significantly better than the other simper models, which is determined by p-values of Likelihood ratio tests.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(gene_models)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar_load</span>(gene_models)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Model 1 predictors: conc and cell_line; random effect: random intercepts for name;</p>
+<section id="model-1" class="level3">
+<h3 class="anchored" data-anchor-id="model-1">Model 1</h3>
+<p>predictors: conc and cell_line;</p>
+<p>random effect: random intercepts for name;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>me1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>me1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: gene_expression ~ conc + cell_line + (1 | name)
@@ -1464,9 +1480,14 @@ conc         0.000
 cll_lnWld-t -0.707  0.000</code></pre>
 </div>
 </div>
-<p>Model 2: predictors: treatment, conc and cell_line; interaction term: treat and conc; random effect: random intercepts for name;</p>
+</section>
+<section id="model-2" class="level3">
+<h3 class="anchored" data-anchor-id="model-2">Model 2:</h3>
+<p>predictors: treatment, conc and cell_line;</p>
+<p>interaction term: treat and conc;</p>
+<p>random effect: random intercepts for name;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>me2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>me2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: gene_expression ~ treatment + conc + cell_line + (1 | name)
@@ -1498,9 +1519,14 @@ conc         0.000  0.000
 cll_lnWld-t -0.577  0.000  0.000</code></pre>
 </div>
 </div>
-<p>Model 3: predictors: treatment, conc and cell_line; interaction term: treatment and conc random effect: random intercepts for name;</p>
+</section>
+<section id="model-3" class="level3">
+<h3 class="anchored" data-anchor-id="model-3">Model 3:</h3>
+<p>predictors: treatment, conc and cell_line;</p>
+<p>interaction term: treatment and conc;</p>
+<p>random effect: random intercepts for name;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>me3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>me3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: gene_expression ~ treatment * conc + cell_line + (1 | name)
@@ -1534,9 +1560,14 @@ cll_lnWld-t -0.577  0.000  0.000
 trtmntPlcb:  0.000  0.000 -0.707  0.000</code></pre>
 </div>
 </div>
-<p>Model 4: predictors: treatment, conc; interaction term: treatment and conc; random effect: name had random intercepts and slopes for conc and treatment were influenced by name.</p>
+</section>
+<section id="model-4" class="level3">
+<h3 class="anchored" data-anchor-id="model-4">Model 4:</h3>
+<p>predictors: treatment, conc;</p>
+<p>interaction term: treatment and conc;</p>
+<p>random effect: name had random intercepts and slopes for conc and treatment were influenced by name.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>me4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>me4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: gene_expression ~ treatment * conc + (1 + conc + treatment |  
@@ -1573,9 +1604,14 @@ optimizer (nloptwrap) convergence code: 0 (OK)
 Model failed to converge with max|grad| = 0.00466398 (tol = 0.002, component 1)</code></pre>
 </div>
 </div>
-<p>Model 4: predictors: treatment, conc and cell line; interaction term: treatment and conc; random effect: name had random intercepts and slopes for conc and treatment were influenced by name.</p>
+</section>
+<section id="model-5" class="level3">
+<h3 class="anchored" data-anchor-id="model-5">Model 5:</h3>
+<p>predictors: treatment, conc and cell line;</p>
+<p>interaction term: treatment and conc;</p>
+<p>random effect: name had random intercepts and slopes for conc and treatment were influenced by name.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>me5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>me5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: gene_expression ~ treatment * conc + cell_line + (1 + conc +  
@@ -1615,30 +1651,31 @@ boundary (singular) fit: see help('isSingular')</code></pre>
 </div>
 </div>
 </section>
+</section>
 <section id="model-selection" class="level1">
 <h1>2024-5-29 Model Selection</h1>
 <p>According to <span class="citation" data-cites="tab-anova">@tab-anova</span>, “me4” had the smallest AIC. Except for “me5”, all other models are significantly better than their previous models. Therefore, we selected “me4” as out final model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>anova</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>anova</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="ehsinedvgv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ehsinedvgv table {
+<div id="duicmxrlbd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#duicmxrlbd table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ehsinedvgv thead, #ehsinedvgv tbody, #ehsinedvgv tfoot, #ehsinedvgv tr, #ehsinedvgv td, #ehsinedvgv th {
+#duicmxrlbd thead, #duicmxrlbd tbody, #duicmxrlbd tfoot, #duicmxrlbd tr, #duicmxrlbd td, #duicmxrlbd th {
   border-style: none;
 }
 
-#ehsinedvgv p {
+#duicmxrlbd p {
   margin: 0;
   padding: 0;
 }
 
-#ehsinedvgv .gt_table {
+#duicmxrlbd .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1664,12 +1701,12 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#ehsinedvgv .gt_caption {
+#duicmxrlbd .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ehsinedvgv .gt_title {
+#duicmxrlbd .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1681,7 +1718,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-bottom-width: 0;
 }
 
-#ehsinedvgv .gt_subtitle {
+#duicmxrlbd .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1693,7 +1730,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-top-width: 0;
 }
 
-#ehsinedvgv .gt_heading {
+#duicmxrlbd .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1705,13 +1742,13 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ehsinedvgv .gt_bottom_border {
+#duicmxrlbd .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ehsinedvgv .gt_col_headings {
+#duicmxrlbd .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1726,7 +1763,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ehsinedvgv .gt_col_heading {
+#duicmxrlbd .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1746,7 +1783,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   overflow-x: hidden;
 }
 
-#ehsinedvgv .gt_column_spanner_outer {
+#duicmxrlbd .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1758,15 +1795,15 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 4px;
 }
 
-#ehsinedvgv .gt_column_spanner_outer:first-child {
+#duicmxrlbd .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ehsinedvgv .gt_column_spanner_outer:last-child {
+#duicmxrlbd .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ehsinedvgv .gt_column_spanner {
+#duicmxrlbd .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1778,11 +1815,11 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   width: 100%;
 }
 
-#ehsinedvgv .gt_spanner_row {
+#duicmxrlbd .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ehsinedvgv .gt_group_heading {
+#duicmxrlbd .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1808,7 +1845,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   text-align: left;
 }
 
-#ehsinedvgv .gt_empty_group_heading {
+#duicmxrlbd .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1823,15 +1860,15 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   vertical-align: middle;
 }
 
-#ehsinedvgv .gt_from_md > :first-child {
+#duicmxrlbd .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ehsinedvgv .gt_from_md > :last-child {
+#duicmxrlbd .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ehsinedvgv .gt_row {
+#duicmxrlbd .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1850,7 +1887,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   overflow-x: hidden;
 }
 
-#ehsinedvgv .gt_stub {
+#duicmxrlbd .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1863,7 +1900,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 5px;
 }
 
-#ehsinedvgv .gt_stub_row_group {
+#duicmxrlbd .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1877,15 +1914,15 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   vertical-align: top;
 }
 
-#ehsinedvgv .gt_row_group_first td {
+#duicmxrlbd .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ehsinedvgv .gt_row_group_first th {
+#duicmxrlbd .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ehsinedvgv .gt_summary_row {
+#duicmxrlbd .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1895,16 +1932,16 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 5px;
 }
 
-#ehsinedvgv .gt_first_summary_row {
+#duicmxrlbd .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ehsinedvgv .gt_first_summary_row.thick {
+#duicmxrlbd .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ehsinedvgv .gt_last_summary_row {
+#duicmxrlbd .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1914,7 +1951,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ehsinedvgv .gt_grand_summary_row {
+#duicmxrlbd .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1924,7 +1961,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 5px;
 }
 
-#ehsinedvgv .gt_first_grand_summary_row {
+#duicmxrlbd .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1934,7 +1971,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#ehsinedvgv .gt_last_grand_summary_row_top {
+#duicmxrlbd .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1944,11 +1981,11 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ehsinedvgv .gt_striped {
+#duicmxrlbd .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ehsinedvgv .gt_table_body {
+#duicmxrlbd .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1957,7 +1994,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ehsinedvgv .gt_footnotes {
+#duicmxrlbd .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1971,7 +2008,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ehsinedvgv .gt_footnote {
+#duicmxrlbd .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1980,7 +2017,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 5px;
 }
 
-#ehsinedvgv .gt_sourcenotes {
+#duicmxrlbd .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1994,7 +2031,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ehsinedvgv .gt_sourcenote {
+#duicmxrlbd .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2002,63 +2039,63 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 5px;
 }
 
-#ehsinedvgv .gt_left {
+#duicmxrlbd .gt_left {
   text-align: left;
 }
 
-#ehsinedvgv .gt_center {
+#duicmxrlbd .gt_center {
   text-align: center;
 }
 
-#ehsinedvgv .gt_right {
+#duicmxrlbd .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ehsinedvgv .gt_font_normal {
+#duicmxrlbd .gt_font_normal {
   font-weight: normal;
 }
 
-#ehsinedvgv .gt_font_bold {
+#duicmxrlbd .gt_font_bold {
   font-weight: bold;
 }
 
-#ehsinedvgv .gt_font_italic {
+#duicmxrlbd .gt_font_italic {
   font-style: italic;
 }
 
-#ehsinedvgv .gt_super {
+#duicmxrlbd .gt_super {
   font-size: 65%;
 }
 
-#ehsinedvgv .gt_footnote_marks {
+#duicmxrlbd .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ehsinedvgv .gt_asterisk {
+#duicmxrlbd .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ehsinedvgv .gt_indent_1 {
+#duicmxrlbd .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ehsinedvgv .gt_indent_2 {
+#duicmxrlbd .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ehsinedvgv .gt_indent_3 {
+#duicmxrlbd .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ehsinedvgv .gt_indent_4 {
+#duicmxrlbd .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ehsinedvgv .gt_indent_5 {
+#duicmxrlbd .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2098,7 +2135,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
 <h1>2024-5-29 Model Visulization</h1>
 <p><a href="#fig-finalm">Figure&nbsp;8</a> illustrated the final model. According to the table, the observations with the same name evenly distributed around their related sublinear model, indicating our final model’s goodness of fit.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>final_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>final_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-finalm" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -2110,26 +2147,26 @@ boundary (singular) fit: see help('isSingular')</code></pre>
 </div>
 <p><span class="citation" data-cites="tab-coef_final">@tab-coef_final</span> displayed the intercepts and coefficients of sublinear models plotted in <a href="#fig-finalm">Figure&nbsp;8</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>coe_final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>gene_models<span class="sc">$</span>coe_final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="hanivzdaxy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hanivzdaxy table {
+<div id="ylghqobjjc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ylghqobjjc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hanivzdaxy thead, #hanivzdaxy tbody, #hanivzdaxy tfoot, #hanivzdaxy tr, #hanivzdaxy td, #hanivzdaxy th {
+#ylghqobjjc thead, #ylghqobjjc tbody, #ylghqobjjc tfoot, #ylghqobjjc tr, #ylghqobjjc td, #ylghqobjjc th {
   border-style: none;
 }
 
-#hanivzdaxy p {
+#ylghqobjjc p {
   margin: 0;
   padding: 0;
 }
 
-#hanivzdaxy .gt_table {
+#ylghqobjjc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2155,12 +2192,12 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#hanivzdaxy .gt_caption {
+#ylghqobjjc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hanivzdaxy .gt_title {
+#ylghqobjjc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2172,7 +2209,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-bottom-width: 0;
 }
 
-#hanivzdaxy .gt_subtitle {
+#ylghqobjjc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2184,7 +2221,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-top-width: 0;
 }
 
-#hanivzdaxy .gt_heading {
+#ylghqobjjc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2196,13 +2233,13 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hanivzdaxy .gt_bottom_border {
+#ylghqobjjc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hanivzdaxy .gt_col_headings {
+#ylghqobjjc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2217,7 +2254,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hanivzdaxy .gt_col_heading {
+#ylghqobjjc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2237,7 +2274,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   overflow-x: hidden;
 }
 
-#hanivzdaxy .gt_column_spanner_outer {
+#ylghqobjjc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2249,15 +2286,15 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 4px;
 }
 
-#hanivzdaxy .gt_column_spanner_outer:first-child {
+#ylghqobjjc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hanivzdaxy .gt_column_spanner_outer:last-child {
+#ylghqobjjc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hanivzdaxy .gt_column_spanner {
+#ylghqobjjc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2269,11 +2306,11 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   width: 100%;
 }
 
-#hanivzdaxy .gt_spanner_row {
+#ylghqobjjc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hanivzdaxy .gt_group_heading {
+#ylghqobjjc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2299,7 +2336,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   text-align: left;
 }
 
-#hanivzdaxy .gt_empty_group_heading {
+#ylghqobjjc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2314,15 +2351,15 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   vertical-align: middle;
 }
 
-#hanivzdaxy .gt_from_md > :first-child {
+#ylghqobjjc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hanivzdaxy .gt_from_md > :last-child {
+#ylghqobjjc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hanivzdaxy .gt_row {
+#ylghqobjjc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2341,7 +2378,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   overflow-x: hidden;
 }
 
-#hanivzdaxy .gt_stub {
+#ylghqobjjc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2354,7 +2391,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 5px;
 }
 
-#hanivzdaxy .gt_stub_row_group {
+#ylghqobjjc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2368,15 +2405,15 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   vertical-align: top;
 }
 
-#hanivzdaxy .gt_row_group_first td {
+#ylghqobjjc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hanivzdaxy .gt_row_group_first th {
+#ylghqobjjc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hanivzdaxy .gt_summary_row {
+#ylghqobjjc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2386,16 +2423,16 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 5px;
 }
 
-#hanivzdaxy .gt_first_summary_row {
+#ylghqobjjc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hanivzdaxy .gt_first_summary_row.thick {
+#ylghqobjjc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hanivzdaxy .gt_last_summary_row {
+#ylghqobjjc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2405,7 +2442,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#hanivzdaxy .gt_grand_summary_row {
+#ylghqobjjc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2415,7 +2452,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 5px;
 }
 
-#hanivzdaxy .gt_first_grand_summary_row {
+#ylghqobjjc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2425,7 +2462,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#hanivzdaxy .gt_last_grand_summary_row_top {
+#ylghqobjjc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2435,11 +2472,11 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#hanivzdaxy .gt_striped {
+#ylghqobjjc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hanivzdaxy .gt_table_body {
+#ylghqobjjc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2448,7 +2485,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#hanivzdaxy .gt_footnotes {
+#ylghqobjjc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2462,7 +2499,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hanivzdaxy .gt_footnote {
+#ylghqobjjc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2471,7 +2508,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 5px;
 }
 
-#hanivzdaxy .gt_sourcenotes {
+#ylghqobjjc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2485,7 +2522,7 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hanivzdaxy .gt_sourcenote {
+#ylghqobjjc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2493,63 +2530,63 @@ boundary (singular) fit: see help('isSingular')</code></pre>
   padding-right: 5px;
 }
 
-#hanivzdaxy .gt_left {
+#ylghqobjjc .gt_left {
   text-align: left;
 }
 
-#hanivzdaxy .gt_center {
+#ylghqobjjc .gt_center {
   text-align: center;
 }
 
-#hanivzdaxy .gt_right {
+#ylghqobjjc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hanivzdaxy .gt_font_normal {
+#ylghqobjjc .gt_font_normal {
   font-weight: normal;
 }
 
-#hanivzdaxy .gt_font_bold {
+#ylghqobjjc .gt_font_bold {
   font-weight: bold;
 }
 
-#hanivzdaxy .gt_font_italic {
+#ylghqobjjc .gt_font_italic {
   font-style: italic;
 }
 
-#hanivzdaxy .gt_super {
+#ylghqobjjc .gt_super {
   font-size: 65%;
 }
 
-#hanivzdaxy .gt_footnote_marks {
+#ylghqobjjc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hanivzdaxy .gt_asterisk {
+#ylghqobjjc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hanivzdaxy .gt_indent_1 {
+#ylghqobjjc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hanivzdaxy .gt_indent_2 {
+#ylghqobjjc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hanivzdaxy .gt_indent_3 {
+#ylghqobjjc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hanivzdaxy .gt_indent_4 {
+#ylghqobjjc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hanivzdaxy .gt_indent_5 {
+#ylghqobjjc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2618,14 +2655,12 @@ boundary (singular) fit: see help('isSingular')</code></pre>
 </div>
 <p>README file path:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"README.qmd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "C:/Users/11961/Desktop/collaboration-project/README.qmd"</code></pre>
 </div>
 </div>
 <p>Project path</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>here<span class="sc">::</span><span class="fu">here</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "C:/Users/11961/Desktop/collaboration-project"</code></pre>
 </div>
