@@ -1,5 +1,11 @@
+# This is a function to plot the conference figures for Karl
+# Input:
+#   gene_clean: cleaned gene data
+#   Output:
+#   p3: the conference figure for Karl, the figures are stored in the "figs" file
 
 plot_conference<- function(gene_clean){
+
 #remove the "GL - "in the variable "name"
 gene_clean$name <- str_remove(gene_clean$name, "GL-")
 #select the data that need to add labels
@@ -14,10 +20,13 @@ font_add(
   )
 )
 
-# Set running
+# plot the figure
+# set running
 showtext_auto()
-showtext_opts(dpi=500)#change the font size (use showtext and geom_label simultanously will make the output's font size really small )
-# plot cell_line = wild-type
+#change the font size (use showtext and geom_label simultanously will make the output's font size really small )
+showtext_opts(dpi=500)
+
+# plot cell_line = Wild-type
 p1<-gene_clean|>
   filter(cell_line=="Wild-type")|>
   ggplot(aes(conc, gene_expression, fill=treatment))+
@@ -45,7 +54,7 @@ p1<-gene_clean|>
         text = element_text(family = "times")
         )
 
-
+#plot cell_line = Cell-type 101
 p2<-gene_clean|>
   filter(cell_line!="Wild-type")|>
   ggplot(aes(conc, gene_expression, fill=treatment))+
@@ -73,28 +82,20 @@ p2<-gene_clean|>
         text = element_text(family = "times")
         )
 
+# combine two figures
 p3<-(p1|p2)+
   plot_layout(guides = "collect") & theme(legend.position = 'bottom', legend.text = element_text(size=15))&
   plot_annotation(
     tag_levels = "A"
   )
 
-
-
-# p3<-ggarrange(p1,p2,
-#           labels = c("A", "B"),
-#           ncol = 2, nrow = 1,common.legend = TRUE, legend="bottom")
-
-
-
-
-
+# save the plot
 ggsave(here::here("figs/2024-04-03_Karl_Conference_figure.tiff"),width = 9,height = 6, units = "in",dpi = 500)
-#showtext_end()
+showtext_auto(FALSE)
 
-p3
+
 }
-# pacman::p_load(tidyverse,targets,patchwork,hrbrthemes,ggrepel,showtext,ggpubr)
-# tar_load(gene_clean)
-# plot_conference(gene_clean)
+pacman::p_load(tidyverse,targets,patchwork,hrbrthemes,ggrepel,showtext,ggpubr)
+tar_load(gene_clean)
+plot_conference(gene_clean)
 
