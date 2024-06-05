@@ -308,6 +308,9 @@ gene_models$me5
 # 2024-5-29 Model Selection
 
 According to @tab-anova, "me4" had the smallest AIC. Except for "me5", all other models are significantly better than their previous models. Therefore, we selected "me4" as out final model.
+
+Moreover, the Likelihood ratio tests also accessed whether a predictor is significant to some extent. For example, model "me2" added variable "treatment" as a predictor to model "me1", and the Likelihood ratio test between them showed that "me2" is significantly better than "me1". Therefore, we can conclude that variable "treatment" is a significant predictor to some extent. Similarly, model "me3" is significantly better than model "me2", indicating the interaction between "conc" and "treatment" is significant to the predictions.
+However, we have no strong evident that model "me5" is significantly better than model "me4". Therefore, we think predictor "cell_line" had no significant influence on the predictions and we deleted it from the model.
 ```{r}
 #| tbl-cap: Table of AIC and p-values of Likelihhod ratio test
 #| label: tab-anova

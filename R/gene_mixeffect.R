@@ -22,8 +22,8 @@ gene_clean$gene_expression <- scale(gene_clean$gene_expression)[,1]
 me1<-lmer(gene_expression~conc+cell_line+(1|name),data = gene_clean)
 me2<-lmer(gene_expression~treatment+conc+cell_line+(1|name),data = gene_clean)
 me3<-lmer(gene_expression~treatment*conc+cell_line+(1|name),data = gene_clean)
-me4<-lmer(gene_expression~treatment*conc+(1+conc+treatment|name),data = gene_clean)
-me5<-lmer(gene_expression~treatment*conc+cell_line+(1+conc+treatment|name),data = gene_clean)
+me4<-lmer(gene_expression~treatment*conc+(1+conc|name),data = gene_clean)
+me5<-lmer(gene_expression~treatment*conc+cell_line+(1+conc|name),data = gene_clean)
 
 # compare model using anova. According to the AIC and likelihood ratio test results, we choose me4 as our final model
 model_anova<-tibble(
@@ -38,6 +38,8 @@ model_anova<-tibble(
     use_seps = FALSE
   )
 
+# The prediction of our final model
+me4_pre = predict(me4)
 
 # extract the intercepts and coefficients of our final model
 model_coef<- tibble(
@@ -82,7 +84,7 @@ result_list <- list('me1'=summary(me1),
                     'final_model'=p3)
 return(result_list)
 }
-# #pacman::p_load(lme4,merTools,caret,tidyverse,gt)
+# pacman::p_load(lme4,merTools,caret,tidyverse,gt)
 # temp<-gene_mixeffect(gene_clean)
 # temp$me1
 # temp$rmse_rsquare
