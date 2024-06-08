@@ -37,6 +37,15 @@ EDA_gene_raw <-function(gene_file){
     geom_histogram(col="black",fill="orange")+
     ggtitle("Histgram of gene_expression")+
     theme_bw()
+
+
+  #save the plots
+  ggsave(here::here("figs/missing_check_plot.png"), check_missing,width = 9,height = 6,units = "in")
+  ggsave(here::here("figs/histogram_conc.png"), conc_histgram,width = 9,height = 6,units = "in")
+  ggsave(here::here("figs/histogram_expression.png"), expression_histgram,width = 9,height = 6,units = "in")
+
+
+
   # store the results in a list
   result_list <- list('summary'=gene_summary,
                       'missing_plot'=check_missing,

@@ -45,8 +45,17 @@ A Powerpoint of EDA can be founded in
 ```{r,echo=FALSE}
 here::here("resources/gene_EDA.pptx")
 ```
+The figures and tables used in the PPT and IMRaD report can be found in the following pathes:
 
+figures:
+```{r,echo=FALSE}
+here::here("figs")
+```
 
+tabs
+```{r,echo=FALSE}
+here::here("tabss")
+```
 
 # 2024-3-3 EDA for raw data
 
@@ -291,7 +300,7 @@ predictors: treatment, conc;
 
 interaction term: treatment and conc;
 
-random effect: name had random intercepts and slopes for conc and treatment were influenced by name.
+random effect: intercepts and coefficient of conc were influenced by name.
 ```{r}
 gene_models$me4
 ```
@@ -300,7 +309,7 @@ predictors: treatment, conc and cell line;
 
 interaction term: treatment and conc;
 
-random effect: name had random intercepts and slopes for conc and treatment were influenced by name.
+random effect: intercepts and coefficient of conc were influenced by name.
 ```{r}
 gene_models$me5
 ```

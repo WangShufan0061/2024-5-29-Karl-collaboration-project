@@ -1,16 +1,16 @@
 # This is a function to plot the conference figures for Karl
 # Input:
-#   gene_clean: cleaned gene data
+#   gene_cleaned: cleaned gene data
 #   Output:
 #   p3: the conference figure for Karl, the figures are stored in the "figs" file
 
-plot_conference<- function(gene_clean){
+plot_conference<- function(gene_cleaned){
 
 #remove the "GL - "in the variable "name"
-gene_clean$name <- str_remove(gene_clean$name, "GL-")
+gene_cleaned$name <- str_remove(gene_cleaned$name, "GL-")
 #select the data that need to add labels
-wild_type_labels = gene_clean|>filter(cell_line=="Wild-type" & conc==10)
-cell_type_labels = gene_clean|>filter(cell_line!="Wild-type" & conc==10)
+wild_type_labels = gene_cleaned|>filter(cell_line=="Wild-type" & conc==10)
+cell_type_labels = gene_cleaned|>filter(cell_line!="Wild-type" & conc==10)
 
 # Add font
 font_add(
@@ -27,7 +27,7 @@ showtext_auto()
 showtext_opts(dpi=500)
 
 # plot cell_line = Wild-type
-p1<-gene_clean|>
+p1<-gene_cleaned|>
   filter(cell_line=="Wild-type")|>
   ggplot(aes(conc, gene_expression, fill=treatment))+
   geom_point(shape = 21,color = "black",size = 3,stroke = 1)+
@@ -42,7 +42,7 @@ p1<-gene_clean|>
                    direction     = "y",#alligement
                    family = "times"#font type
                    )+
-  scale_x_continuous(breaks = gene_clean$conc[c(T,F,F)])+# specifiy the x-axis
+  scale_x_continuous(breaks = gene_cleaned$conc[c(T,F,F)])+# specifiy the x-axis
   expand_limits(x=c(0,11))+
   labs(title = "Wild-type",
        x = "\u03bcg/ml",
@@ -55,7 +55,7 @@ p1<-gene_clean|>
         )
 
 #plot cell_line = Cell-type 101
-p2<-gene_clean|>
+p2<-gene_cleaned|>
   filter(cell_line!="Wild-type")|>
   ggplot(aes(conc, gene_expression, fill=treatment))+
   geom_point(shape = 21,color = "black",size = 3,stroke = 1)+
@@ -70,7 +70,7 @@ p2<-gene_clean|>
                    direction     = "y",
                    family = "times"
   )+
-  scale_x_continuous(breaks = gene_clean$conc[c(T,F,F)])+
+  scale_x_continuous(breaks = gene_cleaned$conc[c(T,F,F)])+
   expand_limits(x=c(0,11))+
   labs(title = "Cell-type 101",
        x = "\u03bcg/ml",
@@ -95,7 +95,7 @@ showtext_auto(FALSE)
 
 
 }
-pacman::p_load(tidyverse,targets,patchwork,hrbrthemes,ggrepel,showtext,ggpubr)
-tar_load(gene_clean)
-plot_conference(gene_clean)
+# pacman::p_load(tidyverse,targets,patchwork,hrbrthemes,ggrepel,showtext,ggpubr)
+# tar_load(gene_cleaned)
+# plot_conference(gene_cleaned)
 
