@@ -19,5 +19,5 @@ list(
   tar_target(gene_clean_EDA, EDA_gene_cleaned(gene_clean)),
   tar_target(sample_size,gene_samplesize(0.1,0.9,0.05,5)),
   tar_target(gene_models,gene_mixeffect(gene_clean)),
-  tar_quarto(readme,"README.qmd")
+  tar_quarto(readme,"README-R.qmd")
 )
